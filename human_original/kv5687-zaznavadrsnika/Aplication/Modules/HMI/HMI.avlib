@@ -1,0 +1,114 @@
+public HMI_UpdateStatus(Bool inStartEnabled, Bool inSirenaEnabled) step
+{
+	CopyObject<Bool>
+	(
+		inObject: inStartEnabled
+		outObject: con_00f30cf6_fa5e_475f_8966_538985f7dbe9
+	)
+
+	Not
+	(
+		inValue: inSirenaEnabled
+		outValue: con_b15c2770_d2df_4270_96d7_3ba6769e18b4
+	)
+
+	CopyObject<Bool>
+	(
+		inObject: inSirenaEnabled
+		outObject: con_b5f333ae_e6bc_4f89_8ce3_77c01a8f6d52
+	)
+
+	CopyObject<Bool>
+	(
+		inObject: con_b15c2770_d2df_4270_96d7_3ba6769e18b4
+		outObject: con_153c8d00_25c2_45df_99f3_c91bd39d7d7c
+	)
+}
+
+public HMI_GetParams(Integer outSliderOffset_Levo, Integer outSliderOffset_Desno) step
+{
+	CopyObject<Integer>
+	(
+		inObject: ext_con_3cdff1e0_fc57_47da_8119_d870355a4413
+		outObject: con_d8ac8ba7_71c4_43bc_bdc9_aaa367789f35
+	)
+
+	CopyObject<Integer>
+	(
+		inObject: ext_con_66c8203c_6fd4_44a8_a046_f68b8b5ca407
+		outObject: con_8a25d5e1_c535_4a94_b58b_7a430cc73bd9
+	)
+
+	outSliderOffset_Levo = con_d8ac8ba7_71c4_43bc_bdc9_aaa367789f35
+
+	outSliderOffset_Desno = con_8a25d5e1_c535_4a94_b58b_7a430cc73bd9
+}
+
+public HMI_UpdateDetections_Levo(Image inImageCropped, Rectangle2D inROI_Level1, Rectangle2D inROI_Level2, Bool inAlarm1, Bool inAlarm2) step
+{
+	CopyObject<Image>
+	(
+		inObject: inImageCropped
+		outObject: con_e4529ebc_8d72_407b_8991_8e0d013a4f32
+	)
+
+	CopyObject<Rectangle2D>
+	(
+		inObject: inROI_Level1
+		outObject: con_6a877d7b_4a59_4397_b704_31217ff75ad5
+	)
+
+	CopyObject<Rectangle2D>
+	(
+		inObject: inROI_Level2
+		outObject: con_ab02e090_b0f2_4538_a342_98fd79d2d172
+	)
+
+	CreateArray<Bool>
+	(
+		inValue1: inAlarm2
+		inValue2: inAlarm1
+		inValue3: Nil
+		inValue4: Nil
+		inValue5: Nil
+		inValue6: Nil
+		inValue7: Nil
+		inValue8: Nil
+		outArray: con_1a05d9f4_eb8d_4e85_9303_d1e84578eeca
+	)
+}
+
+public HMI_UpdateDetections_Desno(Image inImageCropped, Rectangle2D inROI_Level1, Rectangle2D inROI_Level2, Bool inAlarm1, Bool inAlarm2) step
+{
+	CopyObject<Image>
+	(
+		inObject: inImageCropped
+		outObject: con_e4529ebc_8d72_407b_8991_8e0d013a4f32
+	)
+
+	CopyObject<Rectangle2D>
+	(
+		inObject: inROI_Level1
+		outObject: con_6a877d7b_4a59_4397_b704_31217ff75ad5
+	)
+
+	CopyObject<Rectangle2D>
+	(
+		inObject: inROI_Level2
+		outObject: con_ab02e090_b0f2_4538_a342_98fd79d2d172
+	)
+
+	CreateArray<Bool>
+	(
+		inValue1: inAlarm2
+		inValue2: inAlarm1
+		inValue3: Nil
+		inValue4: Nil
+		inValue5: Nil
+		inValue6: Nil
+		inValue7: Nil
+		inValue8: Nil
+		outArray: con_1a05d9f4_eb8d_4e85_9303_d1e84578eeca
+	)
+}
+

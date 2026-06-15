@@ -1,0 +1,758 @@
+enum Status
+{
+	ON
+	OFF
+}
+
+enum SemaforSirena
+{
+	Sirena
+	LevoZelena
+	LevoOranzna
+	LevoRdeca
+	DesnoZelena
+	DesnoOranzna
+	DesnoRdeca
+}
+
+enum SemaforBarva
+{
+	Zelena
+	Oranzna
+	Rdeca
+}
+
+extern public Bool StartEnabled = False
+extern public Integer ext_con_66c8203c_6fd4_44a8_a046_f68b8b5ca407 = 1400
+extern public Integer ext_con_3cdff1e0_fc57_47da_8119_d870355a4413 = 1500
+extern public Bool ext_con_8d9c9e74_d692_4bd2_84a2_23a65eef6448 = False
+
+queue<10> public BoolArray Queue_Levo_Level1 = {}
+queue<10> public BoolArray Queue_Levo_level2 = {}
+queue<10> public BoolArray Queue_Desno_Level1 = {}
+queue<10> public BoolArray Queue_Desno_Level2 = {}
+
+//:SECTIONSVISIBILITY Visible
+//:USETYPE WORKERTASK
+public Main()
+{
+
+section INITIALIZE:
+	Inicializacija
+	(
+	)
+
+section PROCESS:
+	//:HIDDENPORT[inDelay] TRUE
+	Loop
+	(
+		inShouldLoop: True
+		inDelay: 0
+	)
+
+	CheckIf_Start_Enabled
+	(
+		outStartEnabled: con_f37671ce_7f7c_4d05_88a8_e34d95ddfeac
+	)
+
+	CheckIf_Sirena_Enabled
+	(
+		outSirenaEnabled: con_b544077a_5d4c_4dfe_ba42_195e846fc89e
+	)
+
+	Check_Status_Detekcije
+	(
+		outAlarmLevoLevel1: con_2cfc84e8_d26b_4786_8065_e5674b7af24a
+		outAlarmLevoLevel2: con_11d472dd_be1e_4ebe_932f_a45468008c82
+		outAlarmDesnoLevel1: con_c0f2c404_63a6_4603_ab84_336cd985db9a
+		outAlarmDesnoLevel2: con_cdd53d37_8ff9_4f00_978b_63cfd536047e
+	)
+
+	SemaforSirena
+	(
+		inStartEnabled: con_f37671ce_7f7c_4d05_88a8_e34d95ddfeac
+		inSirenaEnabled: con_b544077a_5d4c_4dfe_ba42_195e846fc89e
+		inAlarmLevoLevel1: con_2cfc84e8_d26b_4786_8065_e5674b7af24a
+		inAlarmLevoLevel2: con_11d472dd_be1e_4ebe_932f_a45468008c82
+		inAlarmDesnoLevel1: con_c0f2c404_63a6_4603_ab84_336cd985db9a
+		inAlarmDesnoLevel2: con_cdd53d37_8ff9_4f00_978b_63cfd536047e
+	)
+
+	HMI_UpdateStatus
+	(
+		inStartEnabled: con_f37671ce_7f7c_4d05_88a8_e34d95ddfeac
+		inSirenaEnabled: con_b544077a_5d4c_4dfe_ba42_195e846fc89e
+	)
+}
+
+//:SECTIONSVISIBILITY Visible
+//:USETYPE WORKERTASK
+public DetekcijaLevo()
+{
+
+section ACQUIRE:
+	Loop
+	(
+		inShouldLoop: True
+		inDelay: 0
+	)
+
+	WaitFor_Start
+	(
+		inMM: "Levo"
+	)
+
+	Camera_Grab
+	(
+		inAddress: Camera_Levo
+		outFrame: con_2494d588_ec11_4563_b932_7caaee0d673c
+	)
+
+section PROCESS:
+	HMI_GetParams
+	(
+		outSliderOffset_Levo: con_7379ad36_98c1_4cfa_9974_56ef03268cb3
+		outSliderOffset_Desno: Nil
+	)
+
+	Analiza
+	(
+		inImage: con_2494d588_ec11_4563_b932_7caaee0d673c
+		inSliderOffset: con_7379ad36_98c1_4cfa_9974_56ef03268cb3
+		outAlarm1: con_e49da7d1_f15b_4ed2_b225_05eab523228f
+		outAlarm2: con_c284c499_06de_48a1_ab9c_17a306051d42
+		outImageCropped: con_427f2fc4_c8aa_4b5b_9b3b_c14d5b14068e
+		outROI_Level1: con_2ed7c589_63bc_4657_bd39_81d40b2316dc
+		outROI_Level2: con_85b4a173_9d0b_478f_97e6_58aa6a3f1b73
+	)
+
+	HMI_UpdateDetections_Levo
+	(
+		inImageCropped: con_427f2fc4_c8aa_4b5b_9b3b_c14d5b14068e
+		inROI_Level1: con_2ed7c589_63bc_4657_bd39_81d40b2316dc
+		inROI_Level2: con_85b4a173_9d0b_478f_97e6_58aa6a3f1b73
+		inAlarm1: con_e49da7d1_f15b_4ed2_b225_05eab523228f
+		inAlarm2: con_c284c499_06de_48a1_ab9c_17a306051d42
+	)
+
+	queue Push
+	{
+		port: Queue_Levo_Level1
+	}
+	(
+		inOverflowControl: Nil
+		inValue: con_e49da7d1_f15b_4ed2_b225_05eab523228f
+		outOverflow: Nil
+	)
+
+	queue Push
+	{
+		port: Queue_Levo_level2
+	}
+	(
+		inOverflowControl: Nil
+		inValue: con_c284c499_06de_48a1_ab9c_17a306051d42
+		outOverflow: Nil
+	)
+}
+
+//:SECTIONSVISIBILITY Visible
+//:USETYPE WORKERTASK
+public DetekcijeDesno()
+{
+
+section ACQUIRE:
+	Loop
+	(
+		inShouldLoop: True
+		inDelay: 0
+	)
+
+	WaitFor_Start
+	(
+		inMM: "Desno"
+	)
+
+	Camera_Grab
+	(
+		inAddress: Camera_Desno
+		outFrame: con_bcfbf45b_3f63_4fd5_b92a_e91f629abfb7
+	)
+
+section PROCESS:
+	HMI_GetParams
+	(
+		outSliderOffset_Levo: Nil
+		outSliderOffset_Desno: con_e2b0575b_12cf_4f6f_8127_1dbf14a10428
+	)
+
+	Analiza
+	(
+		inImage: con_bcfbf45b_3f63_4fd5_b92a_e91f629abfb7
+		inSliderOffset: con_e2b0575b_12cf_4f6f_8127_1dbf14a10428
+		outAlarm1: con_b5b48592_7573_48d9_b407_5c81113b93e9
+		outAlarm2: con_6a3cf15e_709a_4fe8_afca_f7234089a67e
+		outImageCropped: con_434612d8_0268_4ac5_9f75_9eb61ffc936b
+		outROI_Level1: con_5c925898_f06e_4c5c_9c71_8a6378cba00d
+		outROI_Level2: con_7e23a63c_1119_4e44_9c94_43bec37bf97e
+	)
+
+	HMI_UpdateDetections_Desno
+	(
+		inImageCropped: con_434612d8_0268_4ac5_9f75_9eb61ffc936b
+		inROI_Level1: con_5c925898_f06e_4c5c_9c71_8a6378cba00d
+		inROI_Level2: con_7e23a63c_1119_4e44_9c94_43bec37bf97e
+		inAlarm1: con_b5b48592_7573_48d9_b407_5c81113b93e9
+		inAlarm2: con_6a3cf15e_709a_4fe8_afca_f7234089a67e
+	)
+
+	queue Push
+	{
+		port: Queue_Desno_Level1
+	}
+	(
+		inOverflowControl: Nil
+		inValue: con_b5b48592_7573_48d9_b407_5c81113b93e9
+		outOverflow: Nil
+	)
+
+	queue Push
+	{
+		port: Queue_Desno_Level2
+	}
+	(
+		inOverflowControl: Nil
+		inValue: con_6a3cf15e_709a_4fe8_afca_f7234089a67e
+		outOverflow: Nil
+	)
+}
+
+//:SECTIONSVISIBILITY Visible
+public Inicializacija() step
+{
+
+section INITIALIZE:
+	Beckhoff_Init
+	(
+	)
+}
+
+public CheckIf_Start_Enabled(Bool outStartEnabled) step
+{
+	Beckhoff_GetStart
+	(
+		outValue: con_ba75e76d_287e_4f48_b41b_f50ca42cd52a
+	)
+
+	parameters write
+	{
+		inputs: StartEnabled
+	}
+	(
+		inStartEnabled: con_ba75e76d_287e_4f48_b41b_f50ca42cd52a
+	)
+
+	outStartEnabled = con_ba75e76d_287e_4f48_b41b_f50ca42cd52a
+}
+
+public CheckIf_Sirena_Enabled(Bool outSirenaEnabled) step
+{
+	Beckhoff_GetSirena
+	(
+		outValue: con_fd559b4b_7d5d_4fd5_9f58_3a9056990a8b
+	)
+
+	outSirenaEnabled = con_fd559b4b_7d5d_4fd5_9f58_3a9056990a8b
+}
+
+//:SECTIONSVISIBILITY Visible
+public WaitFor_Start(String inMM)
+{
+
+section INITIALIZE:
+	expression
+	{
+		String inMM
+		String outMessage = "\"[\" + inMM + \"]\" + \"Čakam na Start...\""
+	}
+	(
+		inMM: inMM
+		outMessage: con_99b88a59_7c6e_405d_9807_da77daa01674
+	)
+
+	WriteLog
+	(
+		inMessage: con_99b88a59_7c6e_405d_9807_da77daa01674
+		inLogLevel: Info
+	)
+
+section PROCESS:
+	Loop
+	(
+		inShouldLoop: True
+		inDelay: 0
+	)
+
+	parameters read
+	{
+		outputs: StartEnabled
+	}
+	(
+		outStartEnabled: con_ba8f5fbb_b307_4239_a95b_ace9fe95ad46
+	)
+
+	Exit
+	(
+		inCondition: con_ba8f5fbb_b307_4239_a95b_ace9fe95ad46
+	)
+}
+
+public Analiza(Image inImage, Integer inSliderOffset, Bool outAlarm1, Bool outAlarm2, Image outImageCropped, Rectangle2D outROI_Level1, Rectangle2D outROI_Level2) step
+{
+	//Rectangle offset 
+	expression
+	{
+		Integer inSlider1
+		Point2D outOriginDetekcija1 = "Point2D (0, (3000 -inSlider1))"
+	}
+	(
+		inSlider1: inSliderOffset
+		outOriginDetekcija1: con_6892facd_bae1_4d69_8f8f_76ffcf95a575
+	)
+
+	//Roi alarm level 1 
+	//:HIDDENPORT[inPointAnchor] TRUE
+	CreateRectangle
+	(
+		inPoint: con_6892facd_bae1_4d69_8f8f_76ffcf95a575
+		inPointAnchor: TopLeft
+		inAngle: 0.000000
+		inWidth: 2048.000000
+		inHeight: 350.000000
+		outRectangle: con_f1d6bec9_9d0a_4507_a063_f3b5067fdad8
+		outRectangle.Origin.X: con_b9ec6e81_39bf_4b38_a989_8f5f5e17e5c6
+		outRectangle.Origin.Y: con_3afe740d_10d3_4d8b_ac51_69efbba667f3
+	)
+
+	expression
+	{
+		Real inRectangleOriginX
+		Real inRectangleOriginY
+		Point2D outRectangle2Origin = "Point2D (inRectangleOriginX, inRectangleOriginY)"
+	}
+	(
+		inRectangleOriginX: con_b9ec6e81_39bf_4b38_a989_8f5f5e17e5c6
+		inRectangleOriginY: con_3afe740d_10d3_4d8b_ac51_69efbba667f3
+		outRectangle2Origin: con_7e386221_faa4_4087_92de_e8098e47e98b
+	)
+
+	//Roi alarm level 2
+	//:HIDDENPORT[inPointAnchor] TRUE
+	CreateRectangle
+	(
+		inPoint: con_7e386221_faa4_4087_92de_e8098e47e98b
+		inPointAnchor: BottomLeft
+		inAngle: 0.000000
+		inWidth: 2048.000000
+		inHeight: 800.000000
+		outRectangle: con_ea299227_5de2_4cf0_b658_ba958af0b17a
+	)
+
+	//Blobs Level 2
+	//:HIDDENPORT[inThresholdParams] TRUE
+	ExtractBlobs_Color
+	(
+		inImage: inImage
+		inRoi: con_ea299227_5de2_4cf0_b658_ba958af0b17a
+		inRoiAlignment: Nil
+		inThresholdParams:
+			ColorThresholdParams
+			(
+				RgbColor:
+					Pixel
+					(
+						X: 58.000000
+						Y: 114.000000
+						Z: 124.000000
+						W: 255.000000
+					)
+				ChromaAmount: 0.700000
+				MaxDifference: 10.000000
+				Hysteresis: 0.000000
+			)
+		inProcessingParams:
+			PreSplitProcessingParams
+			(
+				RemoveBoundaryBlobs: True
+				Kernel: Box
+				OpeningRadius: 2
+				ClosingRadius: 0
+				HoleThreshold: 0
+			)
+		inSplittingParams: SplittingParams()
+		outBlobs: con_ea2671ed_a44b_41ac_9de7_1288fbaa2a78
+		outBaseRegion: Nil
+		outBlobs.Area: Nil
+		outBlobs.IsArrayEmpty.Not: con_fc156631_e2b4_4436_bc87_83587d68211f
+	)
+
+	//Blobs Level1
+	//:HIDDENPORT[inThresholdParams] TRUE
+	ExtractBlobs_Color
+	(
+		inImage: inImage
+		inRoi: con_f1d6bec9_9d0a_4507_a063_f3b5067fdad8
+		inRoiAlignment: Nil
+		inThresholdParams:
+			ColorThresholdParams
+			(
+				RgbColor:
+					Pixel
+					(
+						X: 58.000000
+						Y: 114.000000
+						Z: 124.000000
+						W: 255.000000
+					)
+				ChromaAmount: 0.700000
+				MaxDifference: 10.000000
+				Hysteresis: 0.000000
+			)
+		inProcessingParams:
+			PreSplitProcessingParams
+			(
+				RemoveBoundaryBlobs: True
+				Kernel: Box
+				OpeningRadius: 2
+				ClosingRadius: 0
+				HoleThreshold: 0
+			)
+		inSplittingParams: SplittingParams()
+		outBlobs: con_12e312bc_55ac_4fcd_aae4_e037971348bc
+		outBaseRegion: Nil
+		outBlobs.Area: Nil
+		outBlobs.IsArrayEmpty.Not: con_4f48ac20_5bb0_4246_b74e_7422e58b32e6
+	)
+
+	//:BGIMAGE[inRoi] @input:inImage
+	//:COORDINATESYSTEM[inRoi] @input:inRoiAlignment
+	//:HIDDENPORT[inColorModel] TRUE
+	//:HIDDENPORT[inBeginHue] TRUE
+	//:HIDDENPORT[inEndHue] TRUE
+	//:HIDDENPORT[inMinSaturation] TRUE
+	//:HIDDENPORT[inMaxSaturation] TRUE
+	//:HIDDENPORT[inMinBrightness] TRUE
+	//:HIDDENPORT[inMaxBrightness] TRUE
+	//:HIDDENPORT[inMinAmount] TRUE
+	//:HIDDENPORT[inMaxAmount] TRUE
+	//:LABELDATASOURCE[outIsPresent] Alarm2_alt
+	disabled CheckPresence_PixelAmount
+	(
+		inImage: inImage
+		inRoi:
+			union ShapeRegion
+			(
+				Rectangle2D
+				(
+					Origin:
+						Point2D
+						(
+							X: 11.069824
+							Y: 33.678558
+						)
+					Angle: 0.000000
+					Width: 2036.143677
+					Height: 2406.351562
+				)
+			)
+		inRoiAlignment: Nil
+		inColorModel: HSV
+		inBeginHue: 120
+		inEndHue: 180
+		inMinSaturation: 180
+		inMaxSaturation: 255
+		inMinBrightness: 20.000000
+		inMaxBrightness: 255.000000
+		inMinAmount: 0.020000
+		inMaxAmount: 0.050000
+		outIsPresent: con_253477d8_a21b_4116_b380_681f61a42db7
+		outAmount: Nil
+		outForeground: con_6866e735_2426_4de5_9eb9_3580aa123b70
+		outAlignedRoi: Nil
+		diagHsxImage: Nil
+	)
+
+	//:LABELDATASOURCE[outValue] Alarm2
+	Or
+	(
+		inValue1: con_fc156631_e2b4_4436_bc87_83587d68211f
+		inValue2: con_253477d8_a21b_4116_b380_681f61a42db7
+		inValue3: False
+		inValue4: False
+		inValue5: False
+		inValue6: False
+		inValue7: False
+		inValue8: False
+		outValue: Nil
+	)
+
+	Or
+	(
+		inValue1: con_fc156631_e2b4_4436_bc87_83587d68211f
+		inValue2: ext_con_8d9c9e74_d692_4bd2_84a2_23a65eef6448
+		inValue3: False
+		inValue4: False
+		inValue5: False
+		inValue6: False
+		inValue7: False
+		inValue8: False
+		outValue: con_50e817da_0dab_4c8a_8fee_e3af6025d041
+	)
+
+	outAlarm1 = con_4f48ac20_5bb0_4246_b74e_7422e58b32e6
+
+	outAlarm2 = con_50e817da_0dab_4c8a_8fee_e3af6025d041
+
+	outImageCropped = inImage
+
+	outROI_Level1 = con_f1d6bec9_9d0a_4507_a063_f3b5067fdad8
+
+	outROI_Level2 = con_ea299227_5de2_4cf0_b658_ba958af0b17a
+}
+
+public Check_Status_Detekcije(Bool outAlarmLevoLevel1, Bool outAlarmLevoLevel2, Bool outAlarmDesnoLevel1, Bool outAlarmDesnoLevel2) step
+{
+	queue Pop_Timeout
+	{
+		port: Queue_Levo_Level1
+	}
+	(
+		inTimeout: 0
+		outValue: con_3ec13f6d_cd6a_4165_97e4_2f40e3b28e40
+		outSuccess: Nil
+	)
+
+	queue Pop_Timeout
+	{
+		port: Queue_Levo_level2
+	}
+	(
+		inTimeout: 0
+		outValue: con_0b934d74_d448_4862_ac2e_1907f164f73d
+		outSuccess: Nil
+	)
+
+	queue Pop_Timeout
+	{
+		port: Queue_Desno_Level1
+	}
+	(
+		inTimeout: 0
+		outValue: con_862fa6c0_13a4_491d_a316_da2a4df0169f
+		outSuccess: Nil
+	)
+
+	queue Pop_Timeout
+	{
+		port: Queue_Desno_Level2
+	}
+	(
+		inTimeout: 0
+		outValue: con_2f391e69_5a97_46d2_bc7c_35c3ee14189a
+		outSuccess: Nil
+	)
+
+	expression
+	{
+		Bool? inLevoLevel1
+		Bool? inLevoLevel2
+		Bool? inDesnoLevel1
+		Bool? inDesnoLevel2
+		Bool outAlarmLevoLevel1 = "inLevoLevel1 ?? False"
+		Bool outAlarmLevoLevel2 = "inLevoLevel2 ?? False"
+		Bool outAlarmDesnoLevel1 = "inDesnoLevel1 ?? False"
+		Bool outAlarmDesnoLevel2 = "inDesnoLevel2 ?? False"
+	}
+	(
+		inLevoLevel1: con_3ec13f6d_cd6a_4165_97e4_2f40e3b28e40
+		inLevoLevel2: con_0b934d74_d448_4862_ac2e_1907f164f73d
+		inDesnoLevel1: con_862fa6c0_13a4_491d_a316_da2a4df0169f
+		inDesnoLevel2: con_2f391e69_5a97_46d2_bc7c_35c3ee14189a
+		outAlarmLevoLevel1: con_9379bddc_1bf1_4029_898c_f1d4d03e2839
+		outAlarmLevoLevel2: con_9ae7c918_83b2_42d1_8fa3_67efcedd449f
+		outAlarmDesnoLevel1: con_b9081097_bf5d_4eea_a2cb_71e11cf7088e
+		outAlarmDesnoLevel2: con_7416ce4a_e2b3_42d1_b726_de956bf98652
+	)
+
+	outAlarmLevoLevel1 = con_9379bddc_1bf1_4029_898c_f1d4d03e2839
+
+	outAlarmLevoLevel2 = con_9ae7c918_83b2_42d1_8fa3_67efcedd449f
+
+	outAlarmDesnoLevel1 = con_b9081097_bf5d_4eea_a2cb_71e11cf7088e
+
+	outAlarmDesnoLevel2 = con_7416ce4a_e2b3_42d1_b726_de956bf98652
+}
+
+public SemaforSirena(Bool inStartEnabled, Bool inSirenaEnabled, Bool inAlarmLevoLevel1, Bool inAlarmLevoLevel2, Bool inAlarmDesnoLevel1, Bool inAlarmDesnoLevel2) step
+{
+	expression
+	{
+		Bool inStartEnabled
+		Bool inSirenaEnabled
+		Bool inAlarmLevoLevel1
+		Bool inAlarmLevoLevel2
+		Bool inAlarmDesnoLevel1
+		Bool inAlarmDesnoLevel2
+		Status outSirenaON = "\r\nif inStartEnabled and \r\ninSirenaEnabled and \r\n(inAlarmLevoLevel1 or inAlarmDesnoLevel1)\r\nthen Status.ON\r\nelse Status.OFF"
+		SemaforBarva outSemaforLevo = "\r\nif inStartEnabled == False then SemaforBarva.Rdeca\r\nelif inSirenaEnabled == False then SemaforBarva.Rdeca\r\nelif inStartEnabled and inSirenaEnabled and inAlarmLevoLevel1\r\nthen SemaforBarva.Rdeca\r\nelif inStartEnabled and inSirenaEnabled and inAlarmLevoLevel2\r\nthen SemaforBarva.Oranzna\r\nelse SemaforBarva.Zelena"
+		SemaforBarva outSemaforDesno = "\r\nif inStartEnabled == False then SemaforBarva.Rdeca\r\nelif inSirenaEnabled == False then SemaforBarva.Rdeca\r\nelif inStartEnabled and inSirenaEnabled and inAlarmDesnoLevel1\r\nthen SemaforBarva.Rdeca\r\nelif inStartEnabled and inSirenaEnabled and inAlarmDesnoLevel2\r\nthen SemaforBarva.Oranzna\r\nelse SemaforBarva.Zelena"
+	}
+	(
+		inStartEnabled: inStartEnabled
+		inSirenaEnabled: inSirenaEnabled
+		inAlarmLevoLevel1: inAlarmLevoLevel2
+		inAlarmLevoLevel2: inAlarmLevoLevel1
+		inAlarmDesnoLevel1: inAlarmDesnoLevel2
+		inAlarmDesnoLevel2: inAlarmDesnoLevel1
+		outSirenaON: con_b26c6487_6190_41d5_992a_e59357d20f3f
+		outSemaforLevo: con_bf59288d_e8b7_4281_a55c_0c7df58a1f5e
+		outSemaforDesno: con_8b7c2681_f873_4980_90ed_760ffac236d3
+	)
+
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: Sirena
+		inStatus: con_b26c6487_6190_41d5_992a_e59357d20f3f
+	)
+
+	Semafor_Levo
+	(
+		inColor: con_bf59288d_e8b7_4281_a55c_0c7df58a1f5e
+	)
+
+	Semafor_Desno
+	(
+		inColor: con_8b7c2681_f873_4980_90ed_760ffac236d3
+	)
+}
+
+public Semafor_Levo(SemaforBarva inColor) step(inColor)
+{
+Oranzna:
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: LevoZelena
+		inStatus: OFF
+	)
+
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: LevoOranzna
+		inStatus: ON
+	)
+
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: LevoRdeca
+		inStatus: OFF
+	)
+
+Rdeca:
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: LevoZelena
+		inStatus: OFF
+	)
+
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: LevoOranzna
+		inStatus: OFF
+	)
+
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: LevoRdeca
+		inStatus: ON
+	)
+
+Zelena:
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: LevoZelena
+		inStatus: ON
+	)
+
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: LevoOranzna
+		inStatus: OFF
+	)
+
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: LevoRdeca
+		inStatus: OFF
+	)
+}
+
+public Semafor_Desno(SemaforBarva inColor) step(inColor)
+{
+Oranzna:
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: DesnoZelena
+		inStatus: OFF
+	)
+
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: DesnoOranzna
+		inStatus: ON
+	)
+
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: DesnoRdeca
+		inStatus: OFF
+	)
+
+Rdeca:
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: DesnoZelena
+		inStatus: OFF
+	)
+
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: DesnoOranzna
+		inStatus: OFF
+	)
+
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: DesnoRdeca
+		inStatus: ON
+	)
+
+Zelena:
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: DesnoZelena
+		inStatus: ON
+	)
+
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: DesnoOranzna
+		inStatus: OFF
+	)
+
+	Beckhoff_SetSemaforSirena
+	(
+		inSelect: DesnoRdeca
+		inStatus: OFF
+	)
+}
+

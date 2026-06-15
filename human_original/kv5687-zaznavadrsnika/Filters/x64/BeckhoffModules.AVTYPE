@@ -1,0 +1,50 @@
+enum BKModules
+{
+	KL2541
+	KL1404
+	KL1408
+	KL2404
+	KL2408
+	KL4404
+	KL4408
+}
+
+enum CC320Flags 
+{
+	None
+	TriggerTrailinEdge
+	OutInvert
+	GateInput
+	EthMessage
+	FIFOOut
+	ResyncMode
+	NoPulseOnResync
+}
+
+enum CC320EncoderMode 
+{
+	Enc_Off
+	Enc_OneWire
+	Enc_TwoWire
+}
+
+enum CC320Modes 
+{
+	Mode_Off
+	Mode_On
+	Mode_Ptt
+	Mode_PtE
+	Mode_PEt
+	Mode_PEE
+	Mode_Pd
+	Mode_Enc
+	Mode_bur
+	Mode_FrE
+	Mode_buF
+	Mode_buE
+	Mode_brE
+	Mode_VariablePtt
+	Mode_VariablePte
+	Mode_VariablePet
+	Mode_VariablePee
+}
