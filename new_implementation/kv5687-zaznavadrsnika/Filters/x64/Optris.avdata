@@ -1,0 +1,28 @@
+enum Optris_Colormap {
+    Blue
+    BlueHi
+    GreyBW
+    GreyWB
+    Green
+    Iron
+    IronHi
+    Medical
+    Rainbow
+    RainbowHi
+    Red
+}
+
+enum Optris_ScalingMode {
+    Manual
+    MinMax
+    Sigma1
+    Sigma3
+}
+
+enum Optris_LoggerVerbosityLevel {
+    Off
+    Error
+    Warning
+    Info
+    Debug
+}
