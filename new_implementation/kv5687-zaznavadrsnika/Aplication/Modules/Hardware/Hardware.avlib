@@ -1,0 +1,123 @@
+extern public GenAddress Camera_Levo = GenAddress(VendorName: "GEV", TLType: "GEV", DeviceID: "Hikrobot MV-CS050-10GC (K95789557)")
+extern public GenAddress Camera_Desno = GenAddress(VendorName: "GEV", TLType: "GEV", DeviceID: "Hikrobot MV-CS050-10GC (K95789593)")
+
+public Beckhoff_Init() step
+{
+	WriteLog
+	(
+		inMessage: "Inicializacija Beckhoff"
+		inLogLevel: Info
+	)
+
+	BeckhoffCreateDevice
+	(
+		inName: "Beckhoff"
+		inHost: "172.20.1.160"
+		inPort: 502
+		inModules:
+			BKModulesArray
+			{
+				KL1408
+				KL2408
+			}
+	)
+}
+
+public Beckhoff_GetStart(Bool outValue) step
+{
+	BeckhoffGetDigitalInput
+	(
+		inName: "Beckhoff"
+		inInput: 0
+		outValue: con_b29c46c6_217e_4637_abe1_bb070aa2c521
+	)
+
+	outValue = con_b29c46c6_217e_4637_abe1_bb070aa2c521
+}
+
+public Beckhoff_GetSirena(Bool outValue) step
+{
+	BeckhoffGetDigitalInput
+	(
+		inName: "Beckhoff"
+		inInput: 1
+		outValue: con_17df195e_5d36_4543_a7d2_4f3a5345cc20
+	)
+
+	outValue = con_17df195e_5d36_4543_a7d2_4f3a5345cc20
+}
+
+public Beckhoff_SetSemaforSirena(SemaforSirena inSelect = LevoZelena, Status inStatus) step
+{
+	expression
+	{
+		SemaforSirena inSelect
+		Status inStatus
+		Integer outSemaforIndex = "\r\nif inSelect == SemaforSirena.Sirena then 0\r\nelif inSelect == SemaforSirena.LevoZelena then 1\r\nelif inSelect == SemaforSirena.LevoOranzna then 2\r\nelif inSelect == SemaforSirena.LevoRdeca then 3\r\nelif inSelect == SemaforSirena.DesnoZelena then 4\r\nelif inSelect == SemaforSirena.DesnoOranzna then 5\r\nelif inSelect == SemaforSirena.DesnoRdeca then 6\r\nelse 6"
+		Bool outSemaforOnOff = "\r\nif inStatus == Status.ON then True\r\nelif inStatus == Status.OFF then False\r\nelse True"
+	}
+	(
+		inSelect: inSelect
+		inStatus: inStatus
+		outSemaforIndex: con_cceb1ed1_c636_4401_b593_fedc3417f747
+		outSemaforOnOff: con_fabec8c6_3c68_4cb5_a225_a5c970c7ef19
+	)
+
+	BeckhoffSetDigitalOutput
+	(
+		inName: "Beckhoff"
+		inOutput: con_cceb1ed1_c636_4401_b593_fedc3417f747
+		inValue: con_fabec8c6_3c68_4cb5_a225_a5c970c7ef19
+	)
+}
+
+public Camera_Grab(GenAddress inAddress, Image outFrame) step
+{
+	GenICam_GrabImage
+	(
+		inAddress: inAddress
+		inPixelFormat: "RGB8Packed"
+		inInputQueueSize: 1
+		outFrame: con_9f571687_a4fa_4093_857f_4f313b737836
+		outFrameID: Nil
+		outTimestamp: Nil
+	)
+
+	TransposeImage
+	(
+		inImage: con_9f571687_a4fa_4093_857f_4f313b737836
+		outImage: con_1bd0a299_a2be_4491_b30a_8795401face2
+	)
+
+	disabled RandomInteger
+	(
+		inMinValue: 0
+		inMaxValue: 100001
+		inSeed: Nil
+		outValue: con_2b73d4f2_ddb5_41cc_8cc5_ec33a9992b73
+	)
+
+	//:HIDDENPORT[outString.Length] TRUE
+	disabled FormatIntegerToString
+	(
+		inInteger: con_2b73d4f2_ddb5_41cc_8cc5_ec33a9992b73
+		inDigitCount: 0
+		inTrailingCharacter: "0"
+		inForceSignPrinting: False
+		inSuffix: ""
+		inSystemBase: 10
+		outString: con_0b294eb9_f7de_4c22_8449_1212ce58769a
+		outString.Length: Nil
+	)
+
+	disabled SaveImage
+	(
+		inImage: con_1bd0a299_a2be_4491_b30a_8795401face2
+		inImageFileFormat: PNG
+		inFile: con_0b294eb9_f7de_4c22_8449_1212ce58769a
+		inIgnoreErrors: False
+	)
+
+	outFrame = con_1bd0a299_a2be_4491_b30a_8795401face2
+}
+

@@ -1,0 +1,11 @@
+<HMIState>
+  <toggleButton1>
+    <Value>False</Value>
+  </toggleButton1>
+  <trackBar1>
+    <Value>1426</Value>
+  </trackBar1>
+  <trackBar2>
+    <Value>1400</Value>
+  </trackBar2>
+</HMIState>
