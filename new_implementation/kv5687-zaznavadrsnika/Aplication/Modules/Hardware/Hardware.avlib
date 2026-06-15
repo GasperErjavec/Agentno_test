@@ -50,7 +50,7 @@ public Beckhoff_GetSirena(Bool outValue) step
 public Beckhoff_SetSemaforSirena(SemaforSirena inSelect = LevoZelena, Status inStatus) step
 {
 
-section COMPUTE:
+section INITIALIZE:
 	expression
 	{
 		SemaforSirena inSelect
@@ -65,7 +65,7 @@ section COMPUTE:
 		outSemaforOnOff: con_fabec8c6_3c68_4cb5_a225_a5c970c7ef19
 	)
 
-section WRITE:
+section PROCESS:
 	CopyObject<Bool>
 	(
 		inObject: ext_OfflineMode
@@ -83,7 +83,7 @@ section WRITE:
 public Camera_ResetIfRequested_Levo() step
 {
 
-section CHECK:
+section INITIALIZE:
 	CopyObject<Bool>
 	(
 		inObject: ext_ResetCamera_Levo
@@ -96,7 +96,7 @@ section CHECK:
 	)
 	Exit (inCondition: con_no_reset_levo)
 
-section RESET:
+section PROCESS:
 	WriteLog
 	(
 		inMessage: "[Levo] Camera reset requested, reconnecting..."
@@ -125,7 +125,7 @@ section RESET:
 public Camera_ResetIfRequested_Desno() step
 {
 
-section CHECK:
+section INITIALIZE:
 	CopyObject<Bool>
 	(
 		inObject: ext_ResetCamera_Desno
@@ -138,7 +138,7 @@ section CHECK:
 	)
 	Exit (inCondition: con_no_reset_desno)
 
-section RESET:
+section PROCESS:
 	WriteLog
 	(
 		inMessage: "[Desno] Camera reset requested, reconnecting..."
@@ -213,4 +213,3 @@ public Camera_Grab(GenAddress inAddress, Image outFrame) step
 
 	outFrame = con_1bd0a299_a2be_4491_b30a_8795401face2
 }
-

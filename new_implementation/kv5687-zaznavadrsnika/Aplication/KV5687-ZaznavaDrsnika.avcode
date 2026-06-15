@@ -276,7 +276,7 @@ section INITIALIZE:
 public CheckIf_Start_Enabled(Bool outStartEnabled) step
 {
 
-section OFFLINE:
+section INITIALIZE:
 	CopyObject<Bool>
 	(
 		inObject: ext_OfflineMode
@@ -304,7 +304,7 @@ section OFFLINE:
 	)
 	outStartEnabled = con_cse_true
 
-section ONLINE:
+section PROCESS:
 	CopyObject<Bool>
 	(
 		inObject: ext_OfflineMode
@@ -328,7 +328,7 @@ section ONLINE:
 public CheckIf_Sirena_Enabled(Bool outSirenaEnabled) step
 {
 
-section OFFLINE:
+section INITIALIZE:
 	CopyObject<Bool>
 	(
 		inObject: ext_OfflineMode
@@ -349,7 +349,7 @@ section OFFLINE:
 	)
 	outSirenaEnabled = con_cse2_true
 
-section ONLINE:
+section PROCESS:
 	CopyObject<Bool>
 	(
 		inObject: ext_OfflineMode
@@ -415,7 +415,7 @@ section PROCESS:
 public WaitFor_Online()
 {
 
-section WAIT:
+section PROCESS:
 	Loop
 	(
 		inShouldLoop: True

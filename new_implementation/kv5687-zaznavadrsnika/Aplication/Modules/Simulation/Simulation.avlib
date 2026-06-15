@@ -3,7 +3,7 @@
 public Simulacija()
 {
 
-section WAIT_FOR_OFFLINE:
+section INITIALIZE:
 	Loop
 	(
 		inShouldLoop: True
@@ -16,28 +16,6 @@ section WAIT_FOR_OFFLINE:
 		outObject: con_sim_offline_check
 	)
 	Exit (inCondition: con_sim_offline_check)
-
-section ACQUIRE:
-	//:HIDDENPORT[outFilePath.Length] TRUE
-	//:HIDDENPORT[outFileName.Length] TRUE
-	EnumerateImages
-	(
-		inDirectory: ext_OfflineImagesDir
-		inFileType: Nil
-		inSortingOrder: Name
-		inRepeat: True
-		inProcessSubdirectories: False
-		inInvert: False
-		inLoadAlphaChannel: False
-		inDelay: 0
-		outImage: con_377635aa_2f54_4be8_8f31_8a34ef8bdcf6
-		outFilePath: Nil
-		outFileName: Nil
-		outIsFirst: Nil
-		outIsLast: Nil
-		outFilePath.Length: Nil
-		outFileName.Length: Nil
-	)
 
 section PROCESS:
 	Loop
@@ -58,6 +36,27 @@ section PROCESS:
 	)
 	Exit (inCondition: con_sim_back_online)
 
+	//:HIDDENPORT[outFilePath.Length] TRUE
+	//:HIDDENPORT[outFileName.Length] TRUE
+	EnumerateImages
+	(
+		inDirectory: ext_OfflineImagesDir
+		inFileType: Nil
+		inSortingOrder: Name
+		inRepeat: False
+		inProcessSubdirectories: False
+		inInvert: False
+		inLoadAlphaChannel: False
+		inDelay: 0
+		outImage: con_sim_frame
+		outFilePath: Nil
+		outFileName: Nil
+		outIsFirst: Nil
+		outIsLast: Nil
+		outFilePath.Length: Nil
+		outFileName.Length: Nil
+	)
+
 	HMI_GetParams
 	(
 		outSliderOffset_Levo: con_cdfa0586_f37e_4f70_a544_c134ceddba36
@@ -66,7 +65,7 @@ section PROCESS:
 
 	Analiza
 	(
-		inImage: con_377635aa_2f54_4be8_8f31_8a34ef8bdcf6
+		inImage: con_sim_frame
 		inSliderOffset: con_cdfa0586_f37e_4f70_a544_c134ceddba36
 		outAlarm1: con_sim_alarm1
 		outAlarm2: con_sim_alarm2

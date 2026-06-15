@@ -1,0 +1,121 @@
+06/15/2026 14:14:32 - Info: Working directory: C:\Program Files\Aurora Vision\Aurora Vision Studio 5.2 Professional
+06/15/2026 14:14:34 - Info: Loaded 1946 filters from [C:\Program Files\Aurora Vision\Aurora Vision Studio 5.2 Professional\Filters\AvlFilters.dll] library.
+06/15/2026 14:14:34 - Info: Loaded 59 filters from [C:\Program Files\Aurora Vision\Aurora Vision Studio 5.2 Professional\Filters\GenicamFilters.dll] library.
+06/15/2026 14:14:34 - Info: Loaded 184 filters from [C:\Program Files\Aurora Vision\Aurora Vision Studio 5.2 Professional\Filters\OpenCVFilters.dll] library.
+06/15/2026 14:14:34 - Info: Loaded 565 filters from [C:\Program Files\Aurora Vision\Aurora Vision Studio 5.2 Professional\Filters\StdFilters.dll] library.
+06/15/2026 14:14:34 - Info: Loaded 665 filters from [C:\Program Files\Aurora Vision\Aurora Vision Studio 5.2 Professional\Filters\ThirdPartySdkFilters.dll] library.
+06/15/2026 14:14:34 - Warning: Initializing library [tcpiofilterv4.8_x64.dll]: misses Release function
+06/15/2026 14:14:34 - Info: Loaded 19 filters from [C:\Users\KV-GasperE\Documents\Aurora Vision Studio 5.2 Professional\Filters\x64\TCPIOFilterV4.8_x64.dll] library.
+06/15/2026 14:14:34 - Info: Loaded 9 filters from [C:\Users\Public\Documents\Aurora Vision Studio 5.2 Professional\Filters\x64\IDSFilters_x64.dll] library.
+06/15/2026 14:14:36 - Info: Aurora Vision Studio 5.2.10.91081(x64) is up and running.
+06/15/2026 14:15:01 - Error: Module D:\Repository\Application\kv5687-zaznavadrsnika\Aplication\Bot_corected\Aplication\Aplication\Modules\Hardware\Hardware.avlib couldn't be loaded. Line: 53: Unknown section name: COMPUTE
+06/15/2026 14:15:01 - Error: Module D:\Repository\Application\kv5687-zaznavadrsnika\Aplication\Bot_corected\Aplication\Aplication\Modules/Simulation/Simulation.avlib couldn't be loaded. Line: 6: Unknown section name: WAIT_FOR_OFFLINE
+06/15/2026 14:15:01 - Info: Loaded program.
+06/15/2026 14:15:01 - Error: Module Modules\Hardware\Hardware.avlib couldn't be loaded. Line: 53: Unknown section name: COMPUTE
+06/15/2026 14:15:01 - Error: Module Modules/Simulation/Simulation.avlib couldn't be loaded. Line: 6: Unknown section name: WAIT_FOR_OFFLINE
+06/15/2026 14:15:01 - Info: Loaded program.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Camera_Grab' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inAddress" of filter "(2)Camera_Grab" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Warning: Connection between 'DetekcijaLevo::ACQUIRE → (2)Camera_Grab.outFrame' and '(4)Analiza.inImage' is invalid.
+
+Reason: Incompatible data types UNKNOWN and Image.
+
+Please, correct the connection to make the program valid.
+06/15/2026 14:15:01 - Error: Found invalid data source for input "inImage" of filter "Analiza" instantiated in macrofilter "DetekcijaLevo".
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Camera_Grab' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inAddress" of filter "(2)Camera_Grab" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Warning: Connection between 'DetekcijeDesno::ACQUIRE → (2)Camera_Grab.outFrame' and '(4)Analiza.inImage' is invalid.
+
+Reason: Incompatible data types UNKNOWN and Image.
+
+Please, correct the connection to make the program valid.
+06/15/2026 14:15:01 - Error: Found invalid data source for input "inImage" of filter "Analiza" instantiated in macrofilter "DetekcijeDesno".
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_Init' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_GetStart' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Warning: Connection between 'CheckIf_Start_Enabled::PROCESS → (0)Beckhoff_GetStart.outValue' and '(1)WriteParameter.inStartEnabled' is invalid.
+
+Reason: Incompatible data types UNKNOWN and Bool.
+
+Please, correct the connection to make the program valid.
+06/15/2026 14:15:01 - Error: Found invalid data source for input "inStartEnabled" of filter "WriteParameter" instantiated in macrofilter "CheckIf_Start_Enabled".
+06/15/2026 14:15:01 - Warning: Connection between 'CheckIf_Start_Enabled::PROCESS → (0)Beckhoff_GetStart.outValue' and 'Macrofilter output (outStartEnabled)' is invalid.
+
+Reason: Incompatible data types UNKNOWN and Bool.
+
+Please, correct the connection to make the program valid.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_GetSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Warning: Connection between 'CheckIf_Sirena_Enabled::PROCESS → (0)Beckhoff_GetSirena.outValue' and 'Macrofilter output (outSirenaEnabled)' is invalid.
+
+Reason: Incompatible data types UNKNOWN and Bool.
+
+Please, correct the connection to make the program valid.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(1)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Warning: Connection between 'SemaforSirena::PROCESS → (0)Formula.outSirenaON' and '(1)Beckhoff_SetSemaforSirena.inStatus' is invalid.
+
+Reason: Incompatible data types Status and UNKNOWN.
+
+Please, correct the connection to make the program valid.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(0)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(0)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(1)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(1)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(2)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(2)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(0)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(0)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(1)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(1)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(2)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(2)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(0)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(0)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(1)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(1)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(2)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(2)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(0)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(0)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(1)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(1)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(2)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(2)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(0)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(0)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(1)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(1)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(2)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(2)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(0)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(0)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(1)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(1)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Filter or macrofilter 'Beckhoff_SetSemaforSirena' does not exist or there is no valid license for it.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inSelect" of filter "(2)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:01 - Error: Unable to initialize input "inStatus" of filter "(2)Beckhoff_SetSemaforSirena" instantiated in macrofilter "AdaptiveVisionStudio.Program.MacrofilterVariantSection". Cannot generate amr type for invalid data types. Connection or input value may be lost.
+06/15/2026 14:15:02 - Warning: Failed to load port for preview: Object reference not set to an instance of an object. Preview with data from this port has been removed.
+06/15/2026 14:15:02 - Warning: Failed to load port for preview: Object reference not set to an instance of an object. Preview with data from this port has been removed.
+06/15/2026 14:15:02 - Warning: Failed to load port for preview: Object reference not set to an instance of an object. Preview with data from this port has been removed.
+06/15/2026 14:15:02 - Warning: Failed to load port for preview: Object reference not set to an instance of an object. Preview with data from this port has been removed.
+06/15/2026 14:15:02 - Warning: Failed to load port for preview: Object reference not set to an instance of an object. Preview with data from this port has been removed.
+06/15/2026 14:15:02 - Warning: Failed to load port for preview: Object reference not set to an instance of an object. Preview with data from this port has been removed.
+06/15/2026 14:15:02 - Warning: Failed to load port for preview: Object reference not set to an instance of an object. Preview with data from this port has been removed.
+06/15/2026 14:15:02 - Warning: Failed to load port for preview: Object reference not set to an instance of an object. Preview with data from this port has been removed.
+
