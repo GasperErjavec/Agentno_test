@@ -66,10 +66,12 @@ section INITIALIZE:
 	)
 
 section PROCESS:
-	CopyObject<Bool>
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
 	(
-		inObject: ext_OfflineMode
-		outObject: con_hw_offline_flag
+		outExt_OfflineMode: con_hw_offline_flag
 	)
 	Exit (inCondition: con_hw_offline_flag)
 	BeckhoffSetDigitalOutput
@@ -84,10 +86,12 @@ public Camera_ResetIfRequested_Levo() step
 {
 
 section INITIALIZE:
-	CopyObject<Bool>
+	parameters read
+	{
+		outputs: ext_ResetCamera_Levo
+	}
 	(
-		inObject: ext_ResetCamera_Levo
-		outObject: con_reset_req_levo
+		outExt_ResetCamera_Levo: con_reset_req_levo
 	)
 	Not
 	(
@@ -126,10 +130,12 @@ public Camera_ResetIfRequested_Desno() step
 {
 
 section INITIALIZE:
-	CopyObject<Bool>
+	parameters read
+	{
+		outputs: ext_ResetCamera_Desno
+	}
 	(
-		inObject: ext_ResetCamera_Desno
-		outObject: con_reset_req_desno
+		outExt_ResetCamera_Desno: con_reset_req_desno
 	)
 	Not
 	(

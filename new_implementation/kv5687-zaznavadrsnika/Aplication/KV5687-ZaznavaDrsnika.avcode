@@ -262,10 +262,12 @@ public Inicializacija() step
 {
 
 section INITIALIZE:
-	CopyObject<Bool>
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
 	(
-		inObject: ext_OfflineMode
-		outObject: con_init_offline
+		outExt_OfflineMode: con_init_offline
 	)
 	Exit (inCondition: con_init_offline)
 	Beckhoff_Init
@@ -277,10 +279,12 @@ public CheckIf_Start_Enabled(Bool outStartEnabled) step
 {
 
 section INITIALIZE:
-	CopyObject<Bool>
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
 	(
-		inObject: ext_OfflineMode
-		outObject: con_cse_offline
+		outExt_OfflineMode: con_cse_offline
 	)
 	Not
 	(
@@ -305,10 +309,12 @@ section INITIALIZE:
 	outStartEnabled = con_cse_true
 
 section PROCESS:
-	CopyObject<Bool>
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
 	(
-		inObject: ext_OfflineMode
-		outObject: con_cse_offline2
+		outExt_OfflineMode: con_cse_offline2
 	)
 	Exit (inCondition: con_cse_offline2)
 	Beckhoff_GetStart
@@ -329,10 +335,12 @@ public CheckIf_Sirena_Enabled(Bool outSirenaEnabled) step
 {
 
 section INITIALIZE:
-	CopyObject<Bool>
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
 	(
-		inObject: ext_OfflineMode
-		outObject: con_cse2_offline
+		outExt_OfflineMode: con_cse2_offline
 	)
 	Not
 	(
@@ -350,10 +358,12 @@ section INITIALIZE:
 	outSirenaEnabled = con_cse2_true
 
 section PROCESS:
-	CopyObject<Bool>
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
 	(
-		inObject: ext_OfflineMode
-		outObject: con_cse2_offline2
+		outExt_OfflineMode: con_cse2_offline2
 	)
 	Exit (inCondition: con_cse2_offline2)
 	Beckhoff_GetSirena
@@ -391,10 +401,12 @@ section PROCESS:
 		inDelay: 0
 	)
 
-	CopyObject<Bool>
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
 	(
-		inObject: ext_OfflineMode
-		outObject: con_wfs_offline
+		outExt_OfflineMode: con_wfs_offline
 	)
 	Exit (inCondition: con_wfs_offline)
 
@@ -422,10 +434,12 @@ section PROCESS:
 		inDelay: 100
 	)
 
-	CopyObject<Bool>
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
 	(
-		inObject: ext_OfflineMode
-		outObject: con_wfo_offline
+		outExt_OfflineMode: con_wfo_offline
 	)
 	Not
 	(

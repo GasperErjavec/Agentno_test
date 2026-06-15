@@ -10,10 +10,12 @@ section INITIALIZE:
 		inDelay: 1000
 	)
 
-	CopyObject<Bool>
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
 	(
-		inObject: ext_OfflineMode
-		outObject: con_sim_offline_check
+		outExt_OfflineMode: con_sim_offline_check
 	)
 	Exit (inCondition: con_sim_offline_check)
 
@@ -24,10 +26,12 @@ section PROCESS:
 		inDelay: 2000
 	)
 
-	CopyObject<Bool>
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
 	(
-		inObject: ext_OfflineMode
-		outObject: con_sim_still_offline
+		outExt_OfflineMode: con_sim_still_offline
 	)
 	Not
 	(
@@ -36,11 +40,19 @@ section PROCESS:
 	)
 	Exit (inCondition: con_sim_back_online)
 
+	parameters read
+	{
+		outputs: ext_OfflineImagesDir
+	}
+	(
+		outExt_OfflineImagesDir: con_sim_images_dir
+	)
+
 	//:HIDDENPORT[outFilePath.Length] TRUE
 	//:HIDDENPORT[outFileName.Length] TRUE
 	EnumerateImages
 	(
-		inDirectory: ext_OfflineImagesDir
+		inDirectory: con_sim_images_dir
 		inFileType: Nil
 		inSortingOrder: Name
 		inRepeat: False
