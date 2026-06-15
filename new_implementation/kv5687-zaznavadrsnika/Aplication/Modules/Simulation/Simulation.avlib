@@ -1,29 +1,23 @@
 //:SECTIONSVISIBILITY Visible
-//:USETYPE DISABLEDWORKER
+//:USETYPE WORKERTASK
 public Simulacija()
 {
 
-section ACQUIRE:
-	//:HIDDENPORT[outFilePath.Length] TRUE
-	//:HIDDENPORT[outFileName.Length] TRUE
-	EnumerateImages
+section INITIALIZE:
+	Loop
 	(
-		inDirectory: "D:\\Repository\\Application\\kv5687-zaznavadrsnika\\ZajemAlarm2"
-		inFileType: Nil
-		inSortingOrder: Name
-		inRepeat: True
-		inProcessSubdirectories: False
-		inInvert: False
-		inLoadAlphaChannel: False
-		inDelay: 0
-		outImage: con_377635aa_2f54_4be8_8f31_8a34ef8bdcf6
-		outFilePath: Nil
-		outFileName: Nil
-		outIsFirst: Nil
-		outIsLast: Nil
-		outFilePath.Length: Nil
-		outFileName.Length: Nil
+		inShouldLoop: True
+		inDelay: 1000
 	)
+
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
+	(
+		outExt_OfflineMode: con_sim_offline_check
+	)
+	Exit (inCondition: con_sim_offline_check)
 
 section PROCESS:
 	Loop
@@ -32,37 +26,122 @@ section PROCESS:
 		inDelay: 2000
 	)
 
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
+	(
+		outExt_OfflineMode: con_sim_still_offline
+	)
+	Not
+	(
+		inValue: con_sim_still_offline
+		outValue: con_sim_back_online
+	)
+	Exit (inCondition: con_sim_back_online)
+
+	parameters read
+	{
+		outputs: ext_OfflineImagesDir
+	}
+	(
+		outExt_OfflineImagesDir: con_sim_images_dir
+	)
+
+	//:HIDDENPORT[outFilePath.Length] TRUE
+	//:HIDDENPORT[outFileName.Length] TRUE
+	EnumerateImages
+	(
+		inDirectory: con_sim_images_dir
+		inFileType: Nil
+		inSortingOrder: Name
+		inRepeat: False
+		inProcessSubdirectories: False
+		inInvert: False
+		inLoadAlphaChannel: False
+		inDelay: 0
+		outImage: con_sim_frame
+		outFilePath: Nil
+		outFileName: Nil
+		outIsFirst: Nil
+		outIsLast: Nil
+		outFilePath.Length: Nil
+		outFileName.Length: Nil
+	)
+
 	HMI_GetParams
 	(
 		outSliderOffset_Levo: con_cdfa0586_f37e_4f70_a544_c134ceddba36
 		outSliderOffset_Desno: Nil
 	)
 
-	TransposeImage
-	(
-		inImage: con_377635aa_2f54_4be8_8f31_8a34ef8bdcf6
-		outImage: Nil
-	)
-
 	Analiza
 	(
-		inImage: con_377635aa_2f54_4be8_8f31_8a34ef8bdcf6
+		inImage: con_sim_frame
 		inSliderOffset: con_cdfa0586_f37e_4f70_a544_c134ceddba36
-		inMMidentify: ""
-		outAlarm1: con_02260468_8407_4171_bad2_f5c57b940e50
-		outAlarm2: con_d6de3f2c_6c7e_4bd2_b090_5c81d8bbbde1
-		outImageCropped: con_d524af00_61a4_4b03_a59d_673307948f32
-		outROI_Level1: con_d95b4869_ff7f_47c7_9a5f_c5b144e4d135
-		outROI_Level2: con_96eb0489_f4e5_4a07_a1be_a3b99057efac
+		outAlarm1: con_sim_alarm1
+		outAlarm2: con_sim_alarm2
+		outImageCropped: con_sim_image_cropped
+		outROI_Level1: con_sim_roi_level1
+		outROI_Level2: con_sim_roi_level2
 	)
 
 	HMI_UpdateDetections_Levo
 	(
-		inImageCropped: con_d524af00_61a4_4b03_a59d_673307948f32
-		inROI_Level1: con_d95b4869_ff7f_47c7_9a5f_c5b144e4d135
-		inROI_Level2: con_96eb0489_f4e5_4a07_a1be_a3b99057efac
-		inAlarm1: con_02260468_8407_4171_bad2_f5c57b940e50
-		inAlarm2: con_d6de3f2c_6c7e_4bd2_b090_5c81d8bbbde1
+		inImageCropped: con_sim_image_cropped
+		inROI_Level1: con_sim_roi_level1
+		inROI_Level2: con_sim_roi_level2
+		inAlarm1: con_sim_alarm1
+		inAlarm2: con_sim_alarm2
+	)
+
+	HMI_UpdateDetections_Desno
+	(
+		inImageCropped: con_sim_image_cropped
+		inROI_Level1: con_sim_roi_level1
+		inROI_Level2: con_sim_roi_level2
+		inAlarm1: con_sim_alarm1
+		inAlarm2: con_sim_alarm2
+	)
+
+	queue Push
+	{
+		port: Queue_Levo_Level1
+	}
+	(
+		inOverflowControl: Nil
+		inValue: con_sim_alarm1
+		outOverflow: Nil
+	)
+
+	queue Push
+	{
+		port: Queue_Levo_level2
+	}
+	(
+		inOverflowControl: Nil
+		inValue: con_sim_alarm2
+		outOverflow: Nil
+	)
+
+	queue Push
+	{
+		port: Queue_Desno_Level1
+	}
+	(
+		inOverflowControl: Nil
+		inValue: con_sim_alarm1
+		outOverflow: Nil
+	)
+
+	queue Push
+	{
+		port: Queue_Desno_Level2
+	}
+	(
+		inOverflowControl: Nil
+		inValue: con_sim_alarm2
+		outOverflow: Nil
 	)
 }
 
@@ -94,4 +173,3 @@ section PROCESS:
 		inStatus: OFF
 	)
 }
-

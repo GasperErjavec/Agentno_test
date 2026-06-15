@@ -26,6 +26,10 @@ extern public Bool StartEnabled = False
 extern public Integer ext_con_66c8203c_6fd4_44a8_a046_f68b8b5ca407 = 1400
 extern public Integer ext_con_3cdff1e0_fc57_47da_8119_d870355a4413 = 1500
 extern public Bool ext_con_8d9c9e74_d692_4bd2_84a2_23a65eef6448 = False
+extern public Bool ext_OfflineMode = False
+extern public Bool ext_ResetCamera_Levo = False
+extern public Bool ext_ResetCamera_Desno = False
+extern public String ext_OfflineImagesDir = "Referencne_slike"
 
 queue<10> public BoolArray Queue_Levo_Level1 = {}
 queue<10> public BoolArray Queue_Levo_level2 = {}
@@ -102,10 +106,23 @@ section ACQUIRE:
 		inMM: "Levo"
 	)
 
+	WaitFor_Online
+	(
+	)
+
+	Camera_ResetIfRequested_Levo
+	(
+	)
+
 	Camera_Grab
 	(
 		inAddress: Camera_Levo
 		outFrame: con_2494d588_ec11_4563_b932_7caaee0d673c
+	)
+
+	HMI_UpdateCameraStatus_Levo
+	(
+		inCameraOnline: True
 	)
 
 section PROCESS:
@@ -173,10 +190,23 @@ section ACQUIRE:
 		inMM: "Desno"
 	)
 
+	WaitFor_Online
+	(
+	)
+
+	Camera_ResetIfRequested_Desno
+	(
+	)
+
 	Camera_Grab
 	(
 		inAddress: Camera_Desno
 		outFrame: con_bcfbf45b_3f63_4fd5_b92a_e91f629abfb7
+	)
+
+	HMI_UpdateCameraStatus_Desno
+	(
+		inCameraOnline: True
 	)
 
 section PROCESS:
@@ -232,6 +262,14 @@ public Inicializacija() step
 {
 
 section INITIALIZE:
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
+	(
+		outExt_OfflineMode: con_init_offline
+	)
+	Exit (inCondition: con_init_offline)
 	Beckhoff_Init
 	(
 	)
@@ -239,11 +277,50 @@ section INITIALIZE:
 
 public CheckIf_Start_Enabled(Bool outStartEnabled) step
 {
+
+section INITIALIZE:
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
+	(
+		outExt_OfflineMode: con_cse_offline
+	)
+	Not
+	(
+		inValue: con_cse_offline
+		outValue: con_cse_online
+	)
+	Exit (inCondition: con_cse_online)
+	expression
+	{
+		Bool outTrue = "True"
+	}
+	(
+		outTrue: con_cse_true
+	)
+	parameters write
+	{
+		inputs: StartEnabled
+	}
+	(
+		inStartEnabled: con_cse_true
+	)
+	outStartEnabled = con_cse_true
+
+section PROCESS:
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
+	(
+		outExt_OfflineMode: con_cse_offline2
+	)
+	Exit (inCondition: con_cse_offline2)
 	Beckhoff_GetStart
 	(
 		outValue: con_ba75e76d_287e_4f48_b41b_f50ca42cd52a
 	)
-
 	parameters write
 	{
 		inputs: StartEnabled
@@ -251,17 +328,48 @@ public CheckIf_Start_Enabled(Bool outStartEnabled) step
 	(
 		inStartEnabled: con_ba75e76d_287e_4f48_b41b_f50ca42cd52a
 	)
-
 	outStartEnabled = con_ba75e76d_287e_4f48_b41b_f50ca42cd52a
 }
 
 public CheckIf_Sirena_Enabled(Bool outSirenaEnabled) step
 {
+
+section INITIALIZE:
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
+	(
+		outExt_OfflineMode: con_cse2_offline
+	)
+	Not
+	(
+		inValue: con_cse2_offline
+		outValue: con_cse2_online
+	)
+	Exit (inCondition: con_cse2_online)
+	expression
+	{
+		Bool outTrue = "True"
+	}
+	(
+		outTrue: con_cse2_true
+	)
+	outSirenaEnabled = con_cse2_true
+
+section PROCESS:
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
+	(
+		outExt_OfflineMode: con_cse2_offline2
+	)
+	Exit (inCondition: con_cse2_offline2)
 	Beckhoff_GetSirena
 	(
 		outValue: con_fd559b4b_7d5d_4fd5_9f58_3a9056990a8b
 	)
-
 	outSirenaEnabled = con_fd559b4b_7d5d_4fd5_9f58_3a9056990a8b
 }
 
@@ -295,6 +403,15 @@ section PROCESS:
 
 	parameters read
 	{
+		outputs: ext_OfflineMode
+	}
+	(
+		outExt_OfflineMode: con_wfs_offline
+	)
+	Exit (inCondition: con_wfs_offline)
+
+	parameters read
+	{
 		outputs: StartEnabled
 	}
 	(
@@ -305,6 +422,31 @@ section PROCESS:
 	(
 		inCondition: con_ba8f5fbb_b307_4239_a95b_ace9fe95ad46
 	)
+}
+
+public WaitFor_Online()
+{
+
+section PROCESS:
+	Loop
+	(
+		inShouldLoop: True
+		inDelay: 100
+	)
+
+	parameters read
+	{
+		outputs: ext_OfflineMode
+	}
+	(
+		outExt_OfflineMode: con_wfo_offline
+	)
+	Not
+	(
+		inValue: con_wfo_offline
+		outValue: con_wfo_online
+	)
+	Exit (inCondition: con_wfo_online)
 }
 
 public Analiza(Image inImage, Integer inSliderOffset, Bool outAlarm1, Bool outAlarm2, Image outImageCropped, Rectangle2D outROI_Level1, Rectangle2D outROI_Level2) step
