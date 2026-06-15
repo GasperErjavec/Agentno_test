@@ -221,5 +221,75 @@
         <InputVisibility Property="DataAlignment" Hidden="True" />
       </DesignerAttributes>
     </View2DBox>
+    <Button>
+      <BackColor>70, 130, 180</BackColor>
+      <Font>Microsoft Sans Serif, 14pt, style=Bold</Font>
+      <Location>100, 760</Location>
+      <Name>buttonResetCameraLevo</Name>
+      <Size>159, 80</Size>
+      <TabIndex>13</TabIndex>
+      <Text>Reset Camera&#13;&#10;Levo</Text>
+      <UseVisualStyleBackColor>False</UseVisualStyleBackColor>
+      <Binding>
+        <Output Property="Click" Variable="ext_ResetCamera_Levo" />
+      </Binding>
+    </Button>
+    <Button>
+      <BackColor>70, 130, 180</BackColor>
+      <Font>Microsoft Sans Serif, 14pt, style=Bold</Font>
+      <Location>1640, 760</Location>
+      <Name>buttonResetCameraDesno</Name>
+      <Size>159, 80</Size>
+      <TabIndex>14</TabIndex>
+      <Text>Reset Camera&#13;&#10;Desno</Text>
+      <UseVisualStyleBackColor>False</UseVisualStyleBackColor>
+      <Binding>
+        <Output Property="Click" Variable="ext_ResetCamera_Desno" />
+      </Binding>
+    </Button>
+    <ToggleButton>
+      <BackColor>128, 0, 128</BackColor>
+      <BorderStyle>Fixed3D</BorderStyle>
+      <Font>Microsoft Sans Serif, 12pt, style=Bold</Font>
+      <Location>350, 760</Location>
+      <Name>toggleButtonOfflineMode</Name>
+      <OffText>OFFLINE MODE OFF</OffText>
+      <OnText>OFFLINE MODE ON</OnText>
+      <Size>200, 80</Size>
+      <TabIndex>15</TabIndex>
+      <Binding>
+        <Output Property="Value" Variable="ext_OfflineMode" />
+      </Binding>
+    </ToggleButton>
+    <PassFailIndicator>
+      <AutoTextSize>False</AutoTextSize>
+      <FailText>Kamera Levo: OFFLINE</FailText>
+      <Font>MS Gothic, 11pt</Font>
+      <ImageSizeMode>Stretch</ImageSizeMode>
+      <Location>3, 116</Location>
+      <Name>cameraStatusLevo</Name>
+      <NeutralText>Kamera Levo: ...</NeutralText>
+      <PassText>Kamera Levo: ONLINE</PassText>
+      <Size>300, 40</Size>
+      <TabIndex>16</TabIndex>
+      <Binding>
+        <Input Property="Value" Macro="HMI_UpdateCameraStatus_Levo" Variable="con_cam_status_levo" VariantIndex="0" />
+      </Binding>
+    </PassFailIndicator>
+    <PassFailIndicator>
+      <AutoTextSize>False</AutoTextSize>
+      <FailText>Kamera Desno: OFFLINE</FailText>
+      <Font>MS Gothic, 11pt</Font>
+      <ImageSizeMode>Stretch</ImageSizeMode>
+      <Location>1590, 116</Location>
+      <Name>cameraStatusDesno</Name>
+      <NeutralText>Kamera Desno: ...</NeutralText>
+      <PassText>Kamera Desno: ONLINE</PassText>
+      <Size>300, 40</Size>
+      <TabIndex>17</TabIndex>
+      <Binding>
+        <Input Property="Value" Macro="HMI_UpdateCameraStatus_Desno" Variable="con_cam_status_desno" VariantIndex="0" />
+      </Binding>
+    </PassFailIndicator>
   </Controls>
 </HMI>

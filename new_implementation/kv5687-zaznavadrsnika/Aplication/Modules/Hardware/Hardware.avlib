@@ -49,6 +49,8 @@ public Beckhoff_GetSirena(Bool outValue) step
 
 public Beckhoff_SetSemaforSirena(SemaforSirena inSelect = LevoZelena, Status inStatus) step
 {
+
+section COMPUTE:
 	expression
 	{
 		SemaforSirena inSelect
@@ -63,11 +65,102 @@ public Beckhoff_SetSemaforSirena(SemaforSirena inSelect = LevoZelena, Status inS
 		outSemaforOnOff: con_fabec8c6_3c68_4cb5_a225_a5c970c7ef19
 	)
 
+section WRITE:
+	CopyObject<Bool>
+	(
+		inObject: ext_OfflineMode
+		outObject: con_hw_offline_flag
+	)
+	Exit (inCondition: con_hw_offline_flag)
 	BeckhoffSetDigitalOutput
 	(
 		inName: "Beckhoff"
 		inOutput: con_cceb1ed1_c636_4401_b593_fedc3417f747
 		inValue: con_fabec8c6_3c68_4cb5_a225_a5c970c7ef19
+	)
+}
+
+public Camera_ResetIfRequested_Levo() step
+{
+
+section CHECK:
+	CopyObject<Bool>
+	(
+		inObject: ext_ResetCamera_Levo
+		outObject: con_reset_req_levo
+	)
+	Not
+	(
+		inValue: con_reset_req_levo
+		outValue: con_no_reset_levo
+	)
+	Exit (inCondition: con_no_reset_levo)
+
+section RESET:
+	WriteLog
+	(
+		inMessage: "[Levo] Camera reset requested, reconnecting..."
+		inLogLevel: Info
+	)
+	Delay
+	(
+		inTime: 2000
+	)
+	expression
+	{
+		Bool outFalse = "False"
+	}
+	(
+		outFalse: con_reset_clear_levo
+	)
+	parameters write
+	{
+		inputs: ext_ResetCamera_Levo
+	}
+	(
+		inExt_ResetCamera_Levo: con_reset_clear_levo
+	)
+}
+
+public Camera_ResetIfRequested_Desno() step
+{
+
+section CHECK:
+	CopyObject<Bool>
+	(
+		inObject: ext_ResetCamera_Desno
+		outObject: con_reset_req_desno
+	)
+	Not
+	(
+		inValue: con_reset_req_desno
+		outValue: con_no_reset_desno
+	)
+	Exit (inCondition: con_no_reset_desno)
+
+section RESET:
+	WriteLog
+	(
+		inMessage: "[Desno] Camera reset requested, reconnecting..."
+		inLogLevel: Info
+	)
+	Delay
+	(
+		inTime: 2000
+	)
+	expression
+	{
+		Bool outFalse = "False"
+	}
+	(
+		outFalse: con_reset_clear_desno
+	)
+	parameters write
+	{
+		inputs: ext_ResetCamera_Desno
+	}
+	(
+		inExt_ResetCamera_Desno: con_reset_clear_desno
 	)
 }
 

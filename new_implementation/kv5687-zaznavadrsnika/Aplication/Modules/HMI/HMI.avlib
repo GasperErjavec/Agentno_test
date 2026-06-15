@@ -78,6 +78,24 @@ public HMI_UpdateDetections_Levo(Image inImageCropped, Rectangle2D inROI_Level1,
 	)
 }
 
+public HMI_UpdateCameraStatus_Levo(Bool inCameraOnline) step
+{
+	CopyObject<Bool>
+	(
+		inObject: inCameraOnline
+		outObject: con_cam_status_levo
+	)
+}
+
+public HMI_UpdateCameraStatus_Desno(Bool inCameraOnline) step
+{
+	CopyObject<Bool>
+	(
+		inObject: inCameraOnline
+		outObject: con_cam_status_desno
+	)
+}
+
 public HMI_UpdateDetections_Desno(Image inImageCropped, Rectangle2D inROI_Level1, Rectangle2D inROI_Level2, Bool inAlarm1, Bool inAlarm2) step
 {
 	CopyObject<Image>
