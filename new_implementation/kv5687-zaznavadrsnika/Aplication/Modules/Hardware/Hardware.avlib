@@ -68,10 +68,10 @@ section INITIALIZE:
 section PROCESS:
 	parameters read
 	{
-		outputs: ext_OfflineMode
+		outputs: OfflineMode
 	}
 	(
-		outExt_OfflineMode: con_hw_offline_flag
+		outOfflineMode: con_hw_offline_flag
 	)
 	Exit (inCondition: con_hw_offline_flag)
 	BeckhoffSetDigitalOutput
@@ -88,10 +88,10 @@ public Camera_ResetIfRequested_Levo() step
 section INITIALIZE:
 	parameters read
 	{
-		outputs: ext_ResetCamera_Levo
+		outputs: ResetCamera_Levo
 	}
 	(
-		outExt_ResetCamera_Levo: con_reset_req_levo
+		outResetCamera_Levo: con_reset_req_levo
 	)
 	Not
 	(
@@ -119,10 +119,10 @@ section PROCESS:
 	)
 	parameters write
 	{
-		inputs: ext_ResetCamera_Levo
+		inputs: ResetCamera_Levo
 	}
 	(
-		inExt_ResetCamera_Levo: con_reset_clear_levo
+		inResetCamera_Levo: con_reset_clear_levo
 	)
 }
 
@@ -132,10 +132,10 @@ public Camera_ResetIfRequested_Desno() step
 section INITIALIZE:
 	parameters read
 	{
-		outputs: ext_ResetCamera_Desno
+		outputs: ResetCamera_Desno
 	}
 	(
-		outExt_ResetCamera_Desno: con_reset_req_desno
+		outResetCamera_Desno: con_reset_req_desno
 	)
 	Not
 	(
@@ -163,10 +163,10 @@ section PROCESS:
 	)
 	parameters write
 	{
-		inputs: ext_ResetCamera_Desno
+		inputs: ResetCamera_Desno
 	}
 	(
-		inExt_ResetCamera_Desno: con_reset_clear_desno
+		inResetCamera_Desno: con_reset_clear_desno
 	)
 }
 

@@ -26,10 +26,10 @@ extern public Bool StartEnabled = False
 extern public Integer ext_con_66c8203c_6fd4_44a8_a046_f68b8b5ca407 = 1400
 extern public Integer ext_con_3cdff1e0_fc57_47da_8119_d870355a4413 = 1500
 extern public Bool ext_con_8d9c9e74_d692_4bd2_84a2_23a65eef6448 = False
-extern public Bool ext_OfflineMode = False
-extern public Bool ext_ResetCamera_Levo = False
-extern public Bool ext_ResetCamera_Desno = False
-extern public String ext_OfflineImagesDir = "Referencne_slike"
+extern public Bool OfflineMode = False
+extern public Bool ResetCamera_Levo = False
+extern public Bool ResetCamera_Desno = False
+extern public String OfflineImagesDir = "Referencne_slike"
 
 queue<10> public BoolArray Queue_Levo_Level1 = {}
 queue<10> public BoolArray Queue_Levo_level2 = {}
@@ -264,10 +264,10 @@ public Inicializacija() step
 section INITIALIZE:
 	parameters read
 	{
-		outputs: ext_OfflineMode
+		outputs: OfflineMode
 	}
 	(
-		outExt_OfflineMode: con_init_offline
+		outOfflineMode: con_init_offline
 	)
 	Exit (inCondition: con_init_offline)
 	Beckhoff_Init
@@ -281,10 +281,10 @@ public CheckIf_Start_Enabled(Bool outStartEnabled) step
 section INITIALIZE:
 	parameters read
 	{
-		outputs: ext_OfflineMode
+		outputs: OfflineMode
 	}
 	(
-		outExt_OfflineMode: con_cse_offline
+		outOfflineMode: con_cse_offline
 	)
 	Not
 	(
@@ -311,10 +311,10 @@ section INITIALIZE:
 section PROCESS:
 	parameters read
 	{
-		outputs: ext_OfflineMode
+		outputs: OfflineMode
 	}
 	(
-		outExt_OfflineMode: con_cse_offline2
+		outOfflineMode: con_cse_offline2
 	)
 	Exit (inCondition: con_cse_offline2)
 	Beckhoff_GetStart
@@ -337,10 +337,10 @@ public CheckIf_Sirena_Enabled(Bool outSirenaEnabled) step
 section INITIALIZE:
 	parameters read
 	{
-		outputs: ext_OfflineMode
+		outputs: OfflineMode
 	}
 	(
-		outExt_OfflineMode: con_cse2_offline
+		outOfflineMode: con_cse2_offline
 	)
 	Not
 	(
@@ -360,10 +360,10 @@ section INITIALIZE:
 section PROCESS:
 	parameters read
 	{
-		outputs: ext_OfflineMode
+		outputs: OfflineMode
 	}
 	(
-		outExt_OfflineMode: con_cse2_offline2
+		outOfflineMode: con_cse2_offline2
 	)
 	Exit (inCondition: con_cse2_offline2)
 	Beckhoff_GetSirena
@@ -403,10 +403,10 @@ section PROCESS:
 
 	parameters read
 	{
-		outputs: ext_OfflineMode
+		outputs: OfflineMode
 	}
 	(
-		outExt_OfflineMode: con_wfs_offline
+		outOfflineMode: con_wfs_offline
 	)
 	Exit (inCondition: con_wfs_offline)
 
@@ -436,10 +436,10 @@ section PROCESS:
 
 	parameters read
 	{
-		outputs: ext_OfflineMode
+		outputs: OfflineMode
 	}
 	(
-		outExt_OfflineMode: con_wfo_offline
+		outOfflineMode: con_wfo_offline
 	)
 	Not
 	(

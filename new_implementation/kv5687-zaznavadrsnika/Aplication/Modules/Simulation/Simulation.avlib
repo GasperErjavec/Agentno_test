@@ -12,10 +12,10 @@ section INITIALIZE:
 
 	parameters read
 	{
-		outputs: ext_OfflineMode
+		outputs: OfflineMode
 	}
 	(
-		outExt_OfflineMode: con_sim_offline_check
+		outOfflineMode: con_sim_offline_check
 	)
 	Exit (inCondition: con_sim_offline_check)
 
@@ -28,10 +28,10 @@ section PROCESS:
 
 	parameters read
 	{
-		outputs: ext_OfflineMode
+		outputs: OfflineMode
 	}
 	(
-		outExt_OfflineMode: con_sim_still_offline
+		outOfflineMode: con_sim_still_offline
 	)
 	Not
 	(
@@ -42,10 +42,10 @@ section PROCESS:
 
 	parameters read
 	{
-		outputs: ext_OfflineImagesDir
+		outputs: OfflineImagesDir
 	}
 	(
-		outExt_OfflineImagesDir: con_sim_images_dir
+		outOfflineImagesDir: con_sim_images_dir
 	)
 
 	//:HIDDENPORT[outFilePath.Length] TRUE

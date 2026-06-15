@@ -231,7 +231,7 @@
       <Text>Reset Camera&#13;&#10;Levo</Text>
       <UseVisualStyleBackColor>False</UseVisualStyleBackColor>
       <Binding>
-        <Output Property="Click" Variable="ext_ResetCamera_Levo" />
+        <Output Property="Click" Variable="ResetCamera_Levo" />
       </Binding>
     </Button>
     <Button>
@@ -244,7 +244,7 @@
       <Text>Reset Camera&#13;&#10;Desno</Text>
       <UseVisualStyleBackColor>False</UseVisualStyleBackColor>
       <Binding>
-        <Output Property="Click" Variable="ext_ResetCamera_Desno" />
+        <Output Property="Click" Variable="ResetCamera_Desno" />
       </Binding>
     </Button>
     <ToggleButton>
@@ -258,7 +258,7 @@
       <Size>200, 80</Size>
       <TabIndex>15</TabIndex>
       <Binding>
-        <Output Property="Value" Variable="ext_OfflineMode" />
+        <Output Property="Value" Variable="OfflineMode" />
       </Binding>
     </ToggleButton>
     <PassFailIndicator>
