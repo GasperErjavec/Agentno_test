@@ -1,0 +1,114 @@
+﻿<ViewSets Current="Custom2">
+  <ViewSet Name="Custom1">
+    <HSplit>
+      <VSplit>
+        <Views Width="0.496" Height="0.496">
+          <View Type="ImageView">
+            <Input Name="inRoi" Index="5" Section="Process" Macro="Analiza" Start="Simulacija" Instance="0" />
+            <Input Name="inRoi" Index="8" Section="Process" Macro="Analiza" Start="Simulacija" Instance="0" />
+            <Output Name="con_12e312bc_55ac_4fcd_aae4_e037971348bc" Macro="Analiza" Start="Simulacija" Instance="0" Hidden="True" />
+            <Output Name="con_ea2671ed_a44b_41ac_9de7_1288fbaa2a78" Macro="Analiza" Start="Simulacija" Instance="0" Hidden="True" />
+          </View>
+        </Views>
+        <Views Width="0.498" Height="0.496">
+          <View />
+        </Views>
+      </VSplit>
+      <VSplit>
+        <Views Width="0.496" Height="0.496">
+          <View />
+        </Views>
+        <Views Width="0.498" Height="0.496">
+          <View />
+        </Views>
+      </VSplit>
+    </HSplit>
+    <Window Top="215" Left="-89" Width="1619" Height="702" Visible="False" RelativeDPI="1">
+      <HmiView />
+    </Window>
+  </ViewSet>
+  <ViewSet Name="Auto">
+    <HSplit>
+      <Views Width="0.998" Height="0.596">
+        <AutoView Level="0" />
+      </Views>
+      <VSplit>
+        <Views Width="0.496" Height="0.396">
+          <AutoView Level="1" />
+        </Views>
+        <Views Width="0.498" Height="0.396">
+          <AutoView Level="2" />
+        </Views>
+      </VSplit>
+    </HSplit>
+    <Window Top="215" Left="-89" Width="1619" Height="702" Visible="False" RelativeDPI="1">
+      <HmiView />
+    </Window>
+  </ViewSet>
+  <ViewSet Name="Macro">
+    <HSplit>
+      <Views Width="0.998" Height="0.998">
+        <AutoView Level="0" MacroView="True" />
+      </Views>
+    </HSplit>
+    <Window Top="215" Left="-89" Width="1619" Height="702" Visible="False" RelativeDPI="1">
+      <HmiView />
+    </Window>
+  </ViewSet>
+  <ViewSet Name="HMI">
+    <HSplit>
+      <Views Width="0.998" Height="0.998">
+        <HmiView />
+      </Views>
+    </HSplit>
+  </ViewSet>
+  <ViewSet Name="Custom2">
+    <HSplit>
+      <Views Width="0.998" Height="0.998">
+        <View Type="ImageView">
+          <Output Name="con_42727b4a_4a36_4845_9341_440f32c8bf77" Macro="Analiza" Start="Simulacija" Instance="0" />
+        </View>
+        <View Type="ImageView">
+          <Input Name="inImage" Index="6" Section="Process" Macro="Analiza" Start="Simulacija" Instance="0" />
+          <ViewState>
+            <ViewMode Mode="Manual" Scale="0.333333333333333" X="-201" Y="-95" />
+          </ViewState>
+        </View>
+        <View Type="ImageView">
+          <Input Name="inRegions" Index="6" Section="Process" Macro="Analiza" Start="Simulacija" Instance="0" />
+        </View>
+        <View Type="ImageView">
+          <Output Name="con_dc4f6f24_9063_46cf_b38b_5ce31b1cb937" Macro="Analiza" Start="Simulacija" Instance="0" />
+        </View>
+      </Views>
+    </HSplit>
+    <Window Top="-8" Left="-8" Width="1936" Height="1056" Visible="False" RelativeDPI="1">
+      <HmiView />
+    </Window>
+  </ViewSet>
+  <ViewSet Name="Custom3">
+    <HSplit>
+      <Views Width="0.998" Height="0.834">
+        <View Type="ImageView">
+          <Input Name="inImage" Index="8" Section="Process" Macro="Analiza" Start="DetekcijeDesno" Instance="0" />
+          <Output Name="con_6866e735_2426_4de5_9eb9_3580aa123b70" Macro="Analiza" Start="DetekcijeDesno" Instance="0" />
+          <Input Name="inRoi" Index="8" Section="Process" Macro="Analiza" Start="DetekcijeDesno" Instance="0" />
+          <ViewState>
+            <ViewMode Mode="Manual" Scale="0.2" X="278" Y="57" />
+          </ViewState>
+        </View>
+      </Views>
+      <Views Width="0.998" Height="0.158">
+        <View Type="TextView">
+          <Input Name="inAlarm1" Index="2" Section="Process" Macro="DetekcijeDesno" Start="DetekcijeDesno" Instance="0" />
+          <Input Name="inAlarm2" Index="2" Section="Process" Macro="DetekcijeDesno" Start="DetekcijeDesno" Instance="0" />
+          <Input Name="outAlarm2" Macro="Analiza" Type="EndPort" Start="DetekcijeDesno" Instance="0" />
+          <Input Name="inAlarm2" Index="2" Section="Process" Macro="DetekcijaLevo" Start="DetekcijaLevo" Instance="0" />
+        </View>
+      </Views>
+    </HSplit>
+    <Window Top="-8" Left="-8" Width="1936" Height="1056" Visible="False" RelativeDPI="1">
+      <HmiView />
+    </Window>
+  </ViewSet>
+</ViewSets>

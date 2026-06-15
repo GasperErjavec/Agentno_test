@@ -1,0 +1,13 @@
+﻿<AuroraVisionProject Name="KV5687-ZaznavaDrsnika" Version="5.2.10" Revision="91081" Product="Professional" StartUpProgramName="Main">
+  <RuntimeExecutableSettings>
+    <OutputPath>D:\Application\KV5687-ZaznavaDrsnika.avexe</OutputPath>
+  </RuntimeExecutableSettings>
+  <Files>
+    <Program Path="KV5687-ZaznavaDrsnika.avcode" />
+    <View Path="KV5687-ZaznavaDrsnika.avview" />
+    <HMI Path="KV5687-ZaznavaDrsnika.avhmi" />
+    <Lib Path="Modules\Hardware\Hardware.avlib" />
+    <Lib Path="Modules/HMI/HMI.avlib" />
+    <Lib Path="Modules/Simulation/Simulation.avlib" />
+  </Files>
+</AuroraVisionProject>
